@@ -1,0 +1,166 @@
+Linux Command:
+
+1. ls - Listing the files/Directories
+
+2. cd - Changing Directory
+
+3. pwd - To print the current path
+
+4. mkdir - Creating a directory
+
+5. cp - Copy
+
+6. mv - Move 
+
+7. touch - To create a empty file
+
+8. Text Editors - nano, vim, vi
+
+nano:
+======
+- It can create a new file if the file is not present
+- To save the changes - "Ctrl+o" followed by "Enter"
+- To exit - "Ctrl+x"
+
+vim or vi:
+==========
+- It can create a new file if the file is not present
+- Initially the file opens in default mode (Read) 
+- To edit the file press "i" - This is will change to insert mode 
+- To save the file - Press "Esc" ":wq" (w - Save; q - Quit) (Command mode)
+- To exit from the file without making any changes press "Esc" ":q!"
+
+9. cat - Concatenate
+
+- View the content of the files
+- With cat > {filename} - overrides the content into the file
+- With cat >> {filename} - appends the content into the file
+
+10. Creating users
+
+- To create a User - sudo adduser {Username} 
+
+sudo - Super User Do
+
+- To use sudo, the user should be added to the "sudo" group
+
+Group Name - sudo
+
+sudo usermod -aG {Group Name} {Username}
+
+Ex: sudo usermod -aG sudo Naveen
+
+- To check the user in the system 
+
+cat /etc/passwd
+
+- To delete a user
+
+sudo deluser {username}
+
+- Delete User and their home directory
+
+sudo deluser --remove-home {username}
+
+
+11. Creating a Group
+
+- To create a Group - sudo groupadd {groupname}
+
+sudo groupadd guvi
+
+-aG means "append the group to the user's list of groups"
+
+- To see the groups the user belongs to - groups {username}\
+
+- List all the groups - cat /etc/group
+
+- To delete a user from the group 
+
+ sudo gpasswd -d {username} {groupname}
+
+ sudo gpasswd -d naveen sudo
+
+
+- To delete a group
+
+sudo groupdel {groupname}
+
+
+
+12. File Ownership and Permissions
+
+
+Every file or folder has:
+
+Owner (u)
+Group (g)
+Others (o)
+
+
+Permissions:
+
+Read - r (4)
+
+Write - w (2)
+
+Execute - x (1)
+
+
+- rw- r-- r-- 1 shashi shashi  0 May 14 12:54 test
+
+- = File Type (d = Directory; - = File)
+
+rw- = Permission for Owner (read & Write)
+
+r-- = Permission for Group (read)
+
+r-- = Permission for Others (read)
+
+
+sudo chmod o+wx {filename}
+
+
+sudo chmod u+rw,g+rwx,o+rwx {filename/Directory}
+
+sudo chmod 720 {filename/Directory}
+
+chmod = Change Mode
+
+13. To delete a file
+
+rm {file name}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
