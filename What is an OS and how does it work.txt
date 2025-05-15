@@ -1,0 +1,39 @@
+What is an OS and how does it work?
+====================================
+
+An Operating System (OS) is like the "manager" of your computer. It helps you interact with the computer's hardware (like the processor, memory, and storage) and runs programs or apps that you use, like a browser or a game. It makes sure everything works together smoothly.
+
+Here’s how it works in simple terms:
+=====================================
+
+-> Control Hardware: The OS talks directly to the hardware and makes sure that the computer's parts (like the processor, RAM, hard drive, etc.) are being used properly and efficiently.
+
+-> Manage Resources: It decides which program or process gets to use the computer's resources (like CPU time or memory) and when.
+
+-> User Interaction: It lets you interact with the computer, usually through a graphical interface (like Windows, macOS, or Linux). This interface lets you open files, run programs, and manage settings.
+
+-> Run Programs: The OS helps programs run by providing a stable environment, managing files, and handling input/output (like typing on a keyboard or moving the mouse).
+
+Some examples of operating systems include:
+============================================
+
+-> Windows
+
+-> macOS
+
+-> Linux
+
+-> Android
+
+-> iOS
+
+In short, an OS is the software that makes sure your computer can run programs and handle tasks effectively.
+
+
+
+
+
+
+
+
+
