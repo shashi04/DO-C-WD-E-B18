@@ -132,16 +132,102 @@ chmod = Change Mode
 rm {file name}
 
 
+14. To change owner or group of a file/Directory
+
+sudo chown {owner Name}:{Group name} {file name}
+
+
+15. Filters
+
+-> cat - Displays the content of the file
+
+-> grep - Search pattern in a file
+
+grep "welcome" {file name}
+
+-> Sort - Sort lines
+
+sort 
+
+-> uniq
+
+
+sort my.txt | uniq > temp.txt && mv temp.txt my.txt\\
+
+sort my.txt | uniq = Sort and Print the unique values
+
+> - Will store into the file
+
+temp.txt
+
+-> wc
+
+
+| - pipe
+
+sort {file name} | uniq
+
+Gets the output from the first command and gives it as an input to the second command
+
+
+-> awk - Pattern scanning and processing
+
+-> head - Print the rows from the top
+
+head -{number of rows} {file name}
+
+-> tail - Prints the rows from the bottom
+
+tail -{number of rows} {file name}
+
+
+-> sed - Stream editor for filter and transforming text
 
 
 
+sed 's/{old}/{new}/g' {file name}
+
+sed 's/hello/hi/g' my.txt
+
+
+16. Redirection
+
+
+-> Output Redirection (>)
+
+-> Append output (>>)
+
+-> Input Redirection
+
+sort < test1.txt
 
 
 
+Package manager (Software)
 
 
+Package files will be there in a repository
 
 
+-> APT (Advanced Package Tool) - Debian, Ubuntu
+
+apt
+
+-> YUM (Yellowdog Update, Modified) - CentOS, RHEL 7
+
+yum
+
+-> DNF (Dandified YUM) - Fedora, CentOS 8+, RHEL 8+ 
+
+dnf
+
+-> Pacman - Arch Linux
+
+pacman
+
+-> Zypper - openSUSE
+
+zypper
 
 
 
