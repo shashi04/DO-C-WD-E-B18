@@ -1,0 +1,26 @@
+Tasks of an OS
+===============
+
+
+An operating system (OS) is like the manager of a computer. It handles everything that makes the computer work smoothly. 
+
+Here are its main tasks, explained simply:
+===========================================
+
+1. Managing Hardware: The OS controls all the hardware (like the CPU, memory, and storage). It makes sure everything works together, allowing the computer to run programs properly.
+
+2. Running Programs: It helps run software applications, like web browsers or games, by giving them the resources they need, like memory and processing power.
+
+3. Memory Management: The OS keeps track of the computer’s memory, deciding which program gets which portion of memory and making sure programs don't interfere with each other.
+
+4. File Management: It organizes and manages files on the computer, like documents or images. It makes it easy to save, open, and delete files in an orderly way.
+
+5. User Interface: The OS provides a way for users to interact with the computer, such as through a graphical interface (like buttons and windows) or a command line.
+
+6. Security: The OS keeps your computer safe by managing user accounts, passwords, and permissions, ensuring that unauthorized users can’t access sensitive data.
+
+7. Device Management: It helps connect and manage external devices like printers, keyboards, and mice, making sure they work properly with the computer.
+
+8. Task Scheduling: The OS decides which programs or tasks should be run and when. It prioritizes tasks to keep the computer running efficiently.
+
+In short, the OS acts as a middleman, making sure all the computer’s parts and programs work together seamlessly.
