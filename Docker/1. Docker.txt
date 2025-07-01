@@ -1,0 +1,128 @@
+What is a Container?
+====================
+
+-> Containers are packages of software that contain all of the necessary elements to run in any environment.
+
+-> It is an isolated environment.
+
+============================================================================================================================================================
+What is Docker?
+===============
+
+-> Docker is an open-source platform that allows developers to build, test, and deploy applications quickly.
+
+-> Docker packages software into standardized units called containers that have everything the software needs to run including libraries, system tools, code, and runtime.
+
+=======================================================================================================================
+Docker Components:
+===================
+
+-> DockerFile - Customized Image
+-> DockerImage - AMI
+-> DockerContainer -> Instance
+-> DockerHub -> Online Repository for Docker Images
+
+============================================================================================================================================================General Commands:
+==================
+
+sudo su - -> Switch User to root
+
+sudo apt-get update -> Update the VM
+
+sudo apt install docker.io -> To install Docker
+
+===========================================================================================================================================================DDocker Commands:
+=================
+
+docker --version -> To view the installed Docker Version
+
+docker images -> List the images
+
+docker pull httpd -> Pull httpd image
+
+docker run -itd -p "9090:80" httpd -> To create a Container from the image
+
+docker ps -> List the running Containers
+
+docker ps -a -> List all the Containers
+
+docker exec -it {Container id} /bin/bash -> To get into the Container
+
+docker stop {Container id} - To stop the Container
+
+docker start {Container id} - To start the Container
+
+docker rm {Conatiner id} - To remove a Stopped Container
+
+docker rm -f {Conatiner id} - To force remove a running Container
+
+docker rmi {Image ID] - To remove an image
+
+============================================================================================================================================================Create a customized image from the existing container:
+======================================================
+
+docker commit {Conatiner id} {Image Name} 
+
+--To take a backup of a image and save in your local:
+
+docker save -o /path/{image_name}.tar {Actual_Image_Name_To_Save}
+
+-o = Output
+
+--To load the image from the image backup stored in Local:
+
+docker load -i {image_name}.tar
+
+-i = Input
+
+============================================================================================================================================================Key Concepts
+=============
+
+-> Dockerfile: Script to define how a container is built.
+-> Images: Immutable snapshots of containers.
+-> Containers: Running instances of images.
+-> Volumes: Persistent storage for containers.
+-> Networks: Connect containers for communication.
+
+============================================================================================================================================================Development Workflow
+=====================
+
+-> Define the Container Environment:
+Create a Dockerfile with all dependencies and configurations.
+
+-> Build the Container Image:
+Use docker build -t app-name . to build the image.
+
+-> Run the Container:
+Execute docker run to start the container.
+
+-> Test Locally:
+Ensure the application works as expected in the container.
+
+-> Push to a Registry:
+Publish the image to Docker Hub or a private registry.
+
+-> Deploy:
+Use orchestration tools like Kubernetes for deployment.
+
+============================================================================================================================================================
+Best Practices
+===============
+
+-> Optimize Dockerfile:
+-Use smaller base images (e.g., alpine).
+-Minimize layers in the Dockerfile.
+
+-> Use Multi-Stage Builds:
+-Build in one stage and copy the result to a minimal runtime stage.
+
+-> Keep Images Small:
+-Remove unnecessary files and dependencies.
+
+-> Use Volumes for Persistent Data:
+-Prevent data loss when containers are restarted.
+
+-> Leverage Orchestration:
+-Use Kubernetes or Docker Compose for managing multi-container applications.
+
+===========================================================================================================================================================

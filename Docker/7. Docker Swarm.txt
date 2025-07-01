@@ -1,0 +1,150 @@
+Docker Swarm
+=============
+
+It is a container orchestration tool built into Docker that allows you to manage a cluster of Docker nodes (machines running Docker) as a single virtual system. It simplifies the deployment, scaling, and management of containerized applications across multiple servers.
+
+
+Key Concepts in Docker Swarm
+============================
+
+Node:
+=====
+A node is an individual machine (physical or virtual) running Docker.
+
+There are two types of nodes:
+-> Manager Node: Responsible for maintaining the swarm state, distributing tasks, and managing the cluster.
+-> Worker Node: Executes tasks (containers) assigned by the manager.
+
+Swarm:
+======
+A cluster of Docker nodes that work together as a single system.
+
+Service:
+========
+A definition of tasks (containers) that the swarm will run. You define the container image, ports, and desired scale.
+
+Task:
+=====
+A single instance of a service running in the swarm. Tasks are distributed across worker nodes.
+
+Overlay Network:
+================
+Swarm creates an overlay network to enable communication between containers running on different nodes.
+
+
+How Docker Swarm Works
+=======================
+1. A user initializes a swarm on a manager node.
+2. Worker nodes join the swarm.
+3. The manager assigns tasks to worker nodes based on the service definitions.
+4. If a node fails, Swarm reassigns tasks to healthy nodes to ensure high availability.
+
+Advantages of Docker Swarm
+===========================
+-> Scalability: Easily scale services up or down by increasing or decreasing the number of replicas.
+-> High Availability: Automatically redistributes tasks in case of node failures.
+-> Load Balancing: Distributes incoming requests among healthy containers.
+-> Declarative Model: You specify the desired state, and Docker Swarm ensures it is maintained.
+-> Ease of Use: Integrated into Docker, so no need for separate installations.
+
+==============================================================================================================================
+Step by Step Process
+=====================
+
+Step 1: Prerequisites
+=====================
+--Create EC2 instances:
+
+-> Launch at least two Ubuntu EC2 instances (one for the manager node and others for worker nodes).
+-> Ensure security groups allow SSH (port 22) and Docker Swarm communication ports:
+     TCP: 2377 (cluster management communications)
+     
+--Update and install dependencies:
+
+sudo apt update && sudo apt upgrade -y
+
+
+--Install Docker on all instances:
+
+sudo apt install docker.io
+
+--Verify installation:
+
+docker --version
+
+
+Step 2: Initialize Docker Swarm
+===============================
+
+sudo docker swarm init
+
+The output will include a token. Copy this token; you’ll need it to join worker nodes to the swarm.
+
+
+Step 3: Join Worker Nodes
+=========================
+
+--On each worker node:
+
+Join the swarm using the token from the manager node.
+
+--Verify the nodes:
+
+On the manager node, check the nodes in the swarm:
+
+sudo docker node ls
+
+
+Step 4: Deploy Services
+=======================
+
+--Deploy a service to the swarm:
+
+sudo docker service create --replicas 3 -p 8080:80 nginx
+
+This creates a service with 3 replicas running Nginx, exposed on port 8080.
+
+--Verify services:
+
+Check the status of the service:
+
+sudo docker service ls
+
+--Inspect tasks:
+
+sudo docker service ps <service-name>
+
+
+Step 5: Scaling and Managing the Swarm
+======================================
+
+--Increase the replicas:
+
+sudo docker service scale <service-name>=5
+
+
+--Update the service (e.g., image version):
+
+sudo docker service update --image nginx:latest <service-name>
+
+
+--Remove a worker node from the swarm:
+
+sudo docker node rm <node-id>
+
+
+--To leave the swarm, run:
+
+sudo docker swarm leave
+
+
+Step 6: Cleanup
+===============
+--Remove services:
+
+sudo docker service rm <service-name>
+
+--Remove nodes from the swarm:
+
+sudo docker node rm <node-id>
+

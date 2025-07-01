@@ -1,0 +1,66 @@
+Docker Compose
+===============
+
+Docker Compose is a tool designed to define and manage multi-container Docker applications. It uses a YAML file (docker-compose.yml) to configure the services, networks, and volumes required for your application, making it easier to orchestrate and manage containerized environments.
+
+Key Features of Docker Compose
+===============================
+-> Multi-Container Support: Allows you to define and manage multiple containers as a single application.
+-> Service Definition: Specify each service with its configurations (e.g., image, ports, volumes, environment variables).
+-> Networking: Automatically creates a dedicated network for the services to communicate.
+-> Volumes: Persist data between container restarts.
+-> Scalability: Easily scale services up or down using the docker-compose up --scale command.
+
+Core Commands
+==============
+-> docker-compose up: Starts and runs all the services defined in the YAML file.
+-> docker-compose down: Stops and removes containers, networks, and volumes created by up.
+-> docker-compose build: Builds images specified in the docker-compose.yml file.
+-> docker-compose ps: Lists the status of the services.
+-> docker-compose logs: Displays logs for services.
+-> docker-compose exec: Executes a command inside a running container.
+
+
+Example:
+=========
+
+docker-compose.yml
+
+version: '3.8'
+
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./web:/usr/share/nginx/html
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: exampledb
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
+
+
+Steps to Run:
+=============
+-> Save the YAML content in a file named docker-compose.yml.
+-> Run docker-compose up in the same directory as the file.
+-> Access the Nginx web server at http://localhost:8080.
+
+Benefits of Docker Compose:
+===========================
+-> Simplifies the management of multi-container environments.
+-> Eliminates manual linking and volume configuration.
+-> Easy sharing of configurations using the docker-compose.yml file.
+-> Useful for development, testing, and CI/CD pipelines.
+

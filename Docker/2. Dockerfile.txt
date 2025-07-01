@@ -1,0 +1,120 @@
+Dockerfile
+===========
+
+A Dockerfile is a script that contains a series of instructions to automate the creation of a Docker image. Each instruction in the Dockerfile specifies a step in the image-building process, which is executed in sequence.
+
+Example:
+=========
+
+Step 1: Write a Simple Application
+
+we’ll create a Python Flask application.
+
+Create a project directory:
+============================
+
+mkdir my-docker-app && cd my-docker-app
+
+Create a Python app file:
+===========================
+
+nano app.py
+
+Add the following code to app.py:
+==================================
+
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Hello, Docker!"
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
+
+
+Create a requirements file:
+===========================
+
+Filename: requirements.txt
+
+flask
+
+
+Step 2: Create a Dockerfile
+
+Create a Dockerfile:
+====================
+
+Filename:Dockerfile (no extension required)
+
+nano Dockerfile
+
+
+Add the following content:
+===========================
+
+# Use the official Python image
+FROM python:3.9-slim
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the application files
+COPY . /app
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expose the application port
+EXPOSE 5000
+
+# Define the command to run the app
+CMD ["python", "app.py"]
+
+
+Step 3: Build the Docker Image
+
+Build the image:
+=================
+
+docker build -t my-docker-app .
+
+-t my-docker-app: Tags the image with the name my-docker-app.
+.: Specifies the current directory as the build context.
+
+Verify the image is created:
+=============================
+
+docker images
+
+Step 4: Run the Docker Container
+
+Run the container:
+===================
+
+docker run -itd -p 5000:5000 my-docker-app
+
+-p 5000:5000: Maps port 5000 of your container to port 5000 of your host.
+
+
+Access the application: Open a browser and visit http://localhost:5000. You should see Hello, Docker!.
+
+
+Step 5: Clean Up
+
+Stop the container (if running):
+=================================
+docker ps
+docker stop <container-id>
+
+
+Remove the container and image:
+================================
+docker rm <container-id>
+docker rmi my-docker-app
+
+
+This is a simple example to help you get started with Docker.

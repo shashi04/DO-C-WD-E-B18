@@ -1,0 +1,104 @@
+Multistage Dockerfile
+======================
+
+A multi-stage Dockerfile is used to create efficient Docker images by leveraging multiple stages in the build process. It allows you to separate the build environment from the runtime environment, minimizing the size of the final image and improving security.
+
+
+Example of creating a multi-stage Dockerfile for a Python Flask application on Ubuntu.
+
+Step 1: Create a Flask Application
+
+Create a directory for your project and add the following files:
+==================================================================
+
+Filename: app.py
+
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "Hello, Flask with Multi-Stage Dockerfile!"
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
+
+=====================
+
+Filename: requirements.txt
+
+flask
+
+
+Step 2: Write the Multi-Stage Dockerfile
+
+Create a Dockerfile in the project directory:
+==============================================
+
+(Dockerfile)
+
+# Stage 1: Build
+FROM python:3.11-slim AS builder
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the requirements file
+COPY requirements.txt .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the application code
+COPY . .
+
+# Stage 2: Runtime
+FROM python:3.11-alpine
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the dependencies from the builder stage
+COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --from=builder /app .
+
+# Expose the application port
+EXPOSE 5000
+
+# Command to run the application
+CMD ["python", "app.py"]
+
+
+Step 3: Build and Run the Docker Image
+
+Build the Docker Image:
+========================
+docker build -t {Image_Name} .
+
+. = Current Directory
+
+Run the Docker Container:
+==========================
+docker run -p 5000:5000 {Image_Name}
+
+Step 4: Key Points in the Dockerfile
+
+
+Stage 1: Build
+
+The python:3.11-slim image is used to install all dependencies and build the application.
+Dependencies and application code are prepared in this stage.
+
+Stage 2: Runtime
+
+The python:3.11-alpine image is a smaller base image used for the runtime environment.
+Only essential files and dependencies are copied from the build stage to reduce the final image size.
+
+===========
+
+Benefits of this Approach
+===========================
+-> The final image is lightweight and optimized for production.
+-> Keeps build tools out of the runtime image, improving security.
+-> Easy to extend for more complex Python applications.
