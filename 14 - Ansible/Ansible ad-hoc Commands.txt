@@ -1,0 +1,59 @@
+Ansible ad-hoc Commands
+========================
+
+Ansible ad-hoc commands are one-liners used to perform quick tasks on managed hosts without writing a full playbook. These are useful for quick operations like installing packages, restarting services, copying files, etc.
+
+
+
+🔧 Basic Syntax
+
+ansible <host-pattern> -m <module> -a "<module-options>"
+
+host-pattern: Group or hostname defined in your inventory
+
+-m: Module to use (e.g., ping, shell, yum, copy, etc.)
+
+-a: Arguments for the module
+
+
+✅ Examples
+
+1. Ping all hosts
+
+ansible all -m ping
+
+2. Run a shell command
+
+ansible all -m shell -a "uptime"
+
+3. Copy a file to remote hosts
+
+ansible all -m copy -a "src=/etc/hosts dest=/tmp/hosts"
+
+4. Install a package using yum (RHEL/CentOS)
+
+ansible webservers -m yum -a "name=httpd state=present"
+
+5. Start a service
+
+ansible webservers -m service -a "name=httpd state=started"
+
+6. Reboot remote hosts
+
+ansible all -m reboot
+
+7. Create a user
+
+ansible all -m user -a "name=john state=present"
+
+8. Change file permissions
+
+ansible all -m file -a "path=/tmp/hosts mode=0644"
+
+9. Get disk usage
+
+ansible all -m shell -a "df -h"
+
+10. Gather system facts
+
+ansible all -m setup

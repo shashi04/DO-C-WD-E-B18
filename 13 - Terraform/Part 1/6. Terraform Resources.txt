@@ -1,0 +1,110 @@
+Terraform Resources
+====================
+
+Terraform provides various resource types to manage cloud and infrastructure services. Here are some key Terraform resources you might use when deploying EC2 instances or other AWS infrastructure:
+
+1. Basic EC2 Instance Resource
+===============================
+
+resource "aws_instance" "example" {
+  ami           = "ami-0abcdef1234567890"  # Replace with the correct AMI ID
+  instance_type = "t2.micro"
+  key_name      = "my-key"                 # Replace with your key pair name
+
+  tags = {
+    Name = "ExampleInstance"
+  }
+}
+
+
+2. VPC (Virtual Private Cloud)
+===============================
+
+resource "aws_vpc" "example_vpc" {
+  cidr_block = "10.0.0.0/16"
+}
+
+
+3. Subnet
+==========
+
+resource "aws_subnet" "example_subnet" {
+  vpc_id            = aws_vpc.example_vpc.id
+  cidr_block        = "10.0.1.0/24"
+  map_public_ip_on_launch = true
+}
+
+
+4. Security Group
+==================
+
+resource "aws_security_group" "example_sg" {
+  name        = "example_sg"
+  description = "Allow SSH and HTTP"
+  vpc_id      = aws_vpc.example_vpc.id
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+
+5. Elastic IP (EIP)
+====================
+
+resource "aws_eip" "example_eip" {
+  instance = aws_instance.example.id
+}
+
+
+6. S3 Bucket
+=============
+
+resource "aws_s3_bucket" "example_bucket" {
+  bucket = "my-example-bucket"
+  acl    = "private"
+}
+
+
+7. IAM Role for EC2
+====================
+
+resource "aws_iam_role" "ec2_role" {
+  name = "ec2-role"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "ec2.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}
+
+
+These are just a few examples of Terraform resources. Since you are setting up EC2 deployment with Terraform.

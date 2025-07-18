@@ -1,0 +1,66 @@
+Terraform state
+================
+
+Terraform state is a crucial component of Terraform that keeps track of the resources it manages. It records metadata about infrastructure, helping Terraform map real-world resources to your configuration files. Here’s what you need to know:
+
+Why is Terraform State Needed?
+===============================
+
+-> Tracks Infrastructure Changes: Keeps a record of resources Terraform manages.
+-> Performance Optimization: Avoids querying cloud providers for every operation.
+-> Dependency Management: Helps Terraform understand resource dependencies.
+-> Collaboration & Consistency: Ensures teams work with the same infrastructure state.
+
+Terraform State Files
+======================
+
+-> The state is stored in a file named terraform.tfstate.
+-> It contains resource metadata, dependencies, and attributes.
+-> Should be secured as it may contain sensitive data (e.g., passwords, secrets).
+
+Local vs Remote State
+======================
+
+Local State
+============
+
+-> Stored in the working directory (terraform.tfstate).
+-> Best for: Small projects, personal use.
+-> Risk: No collaboration, potential data loss.
+
+Remote State
+=============
+
+-> Stored in backend storage like AWS S3, Azure Blob, or Terraform Cloud.
+-> Enables collaboration, versioning, and locking.
+-> Best for: Team environments, production use.
+
+Common Remote Backends:
+========================
+
+-> Amazon S3 (with DynamoDB for state locking)
+-> Azure Blob Storage
+-> Google Cloud Storage
+-> Terraform Cloud/Enterprise
+
+State Locking
+==============
+
+-> Prevents multiple Terraform runs from corrupting state.
+-> Enabled in backends like S3 with DynamoDB, Terraform Cloud, and Consul.
+
+Terraform State Commands
+=========================
+
+terraform state list → Lists all tracked resources.
+terraform state show <resource> → Shows details of a resource.
+terraform state mv <src> <dest> → Moves a resource within the state.
+terraform state rm <resource> → Removes a resource from the state.
+
+Best Practices
+===============
+✅ Use remote state for collaboration.
+✅ Enable state locking to prevent conflicts.
+✅ Encrypt state files when using cloud storage.
+✅ Use version control for state backups.
+✅ Do not manually edit terraform.tfstate files.

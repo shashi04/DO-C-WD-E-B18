@@ -1,0 +1,13 @@
+Step 1: Upload the pem key of the managed host
+
+Step 2: Update the following in the Inventory file
+
+[ec2]
+ec2-instance ansible_host=EC2_PUBLIC_IP ansible_user=ec2-user ansible_private_key_file=/path/to/your-key.pem
+
+
+Step 3: Create the playbook for apache install
+
+Step 4: Run the playbook
+
+ansible-playbook -i inventory.ini ec2_setup.yml

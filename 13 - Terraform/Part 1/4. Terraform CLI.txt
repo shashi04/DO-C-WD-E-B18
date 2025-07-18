@@ -1,0 +1,91 @@
+Terraform CLI
+==============
+
+Terraform CLI (Command-Line Interface) is the main tool used to interact with Terraform for provisioning infrastructure. It allows you to create, manage, and destroy resources using Infrastructure as Code (IaC). 
+
+Below are key aspects of Terraform CLI:
+
+1. Initialize Terraform
+
+terraform init
+
+-> Downloads the required provider plugins.
+-> Sets up the backend for storing the state file.
+
+
+2. Format and Validate Configuration
+
+terraform fmt
+
+-> Formats the .tf files for consistency.
+
+terraform validate
+
+-> Checks if the configuration is syntactically valid.
+
+
+3. Plan Infrastructure Changes
+
+terraform plan
+
+-> Shows what Terraform will do before applying changes.
+
+
+4. Apply Changes (Deploy Resources)
+
+terraform apply
+
+-> Creates or updates the infrastructure as per the .tf files.
+
+
+5. Destroy Resources (Delete Infrastructure)
+
+terraform destroy
+
+-> Deletes all resources defined in the configuration.
+
+==============================================================================================================================================================
+
+Other Important Terraform CLI Commands
+=======================================
+
+1. Check the State of Deployed Resources
+
+terraform show
+
+-> Displays the current state of your infrastructure.
+
+
+2. List State Resources
+
+terraform state list
+
+-> Shows all managed resources.
+
+
+3. Manually Remove a Resource from State
+
+terraform state rm <resource_name>
+
+-> Detaches a resource from Terraform’s management.
+
+
+4. Import an Existing Resource into Terraform
+
+terraform import <resource_name> <resource_id>
+
+-> Brings an existing cloud resource under Terraform control.
+
+
+5. Output Values
+
+terraform output
+
+-> Displays the values of output variables.
+
+
+6. Version Check
+
+terraform version
+
+-> Shows the Terraform version installed.

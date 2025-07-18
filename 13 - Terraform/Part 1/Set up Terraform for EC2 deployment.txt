@@ -1,0 +1,118 @@
+Set up Terraform for EC2 deployment on AWS
+===========================================
+
+
+Step 1: Install Terraform
+==========================
+
+For Ubuntu (your EC2 instance)
+
+sudo apt update && sudo apt install -y wget unzip
+
+wget https://releases.hashicorp.com/terraform/1.11.2/terraform_1.11.2_linux_amd64.zip
+
+unzip terraform_1.11.2_linux_amd64.zip
+
+sudo mv terraform /usr/local/bin/
+
+terraform --version  # Verify installation
+
+==============================================================================================================================================================
+
+Step 2: Configure AWS CLI (If Not Done Already)
+================================================
+
+Terraform needs AWS credentials to create resources.
+
+1. Install AWS CLI (if not installed):
+
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+
+unzip awscliv2.zip
+
+sudo ./aws/install
+
+aws --version
+
+
+2. Configure AWS credentials:
+
+aws configure
+
+Enter your AWS Access Key, Secret Key, Region (e.g., ap-south-1), and output format (json).
+
+==============================================================================================================================================================
+
+Step 3: Write Terraform Code for EC2 Instance
+==============================================
+
+1. Create a working directory:
+
+mkdir terraform-ec2 && cd terraform-ec2
+
+
+2. Create a Terraform configuration file (main.tf):
+
+provider "aws" {
+  region = "us-east-1"
+}
+
+resource "aws_instance" "my_ec2" {
+  ami           = "ami-09e67e426f25ce0d7"  # Change this to your preferred AMI
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "MyTerraformInstance"
+  }
+}
+
+==============================================================================================================================================================
+
+Step 4: Initialize Terraform
+=============================
+
+1. Run the following command to download the necessary provider plugins:
+
+terraform init
+
+==============================================================================================================================================================
+
+Step 5: Plan & Apply
+=====================
+
+1. Preview what Terraform will create:
+
+terraform plan
+
+
+2. Deploy the EC2 instance:
+
+terraform apply -auto-approve
+
+==============================================================================================================================================================
+
+Step 6: Verify the Instance
+============================
+
+Check if the instance is running:
+
+aws ec2 describe-instances --query "Reservations[*].Instances[*].InstanceId"
+
+==============================================================================================================================================================
+
+Step 7: Destroy (Optional)
+===========================
+
+If you want to delete the instance:
+
+terraform destroy -auto-approve
+
+
+
+
+
+
+
+
+
+

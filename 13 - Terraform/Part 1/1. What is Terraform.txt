@@ -1,0 +1,66 @@
+What is Terraform?
+==================
+
+Terraform is an Infrastructure as Code (IaC) tool developed by HashiCorp that allows you to define, provision, and manage cloud infrastructure using a declarative configuration language (HCL - HashiCorp Configuration Language). It enables automation of infrastructure deployment across multiple cloud providers like AWS, Azure, GCP, and even on-premise environments.
+
+How Terraform Works
+====================
+
+Terraform operates in a lifecycle of Write → Plan → Apply:
+
+Write
+======
+-> Define the infrastructure using HCL in .tf files.
+-> Example: Define an EC2 instance, S3 bucket, or VPC.
+
+Plan
+=====
+-> Run terraform plan to preview what changes will be made.
+-> Terraform compares the desired state (your .tf files) with the actual state of the infrastructure.
+
+Apply
+======
+-> Run terraform apply to create or update resources as defined.
+-> Terraform interacts with the provider (AWS, Azure, etc.) via APIs to provision infrastructure.
+
+Destroy (Optional)
+========
+-> Run terraform destroy to remove infrastructure if no longer needed.
+
+
+Key Terraform Concepts
+=======================
+
+Providers → Define which cloud or service Terraform interacts with (AWS, Azure, GCP, Kubernetes, etc.).
+Resources → The actual cloud components (EC2, RDS, S3, VMs, etc.).
+Variables → Allow customization and reusability of configurations.
+State File (terraform.tfstate) → Stores metadata about deployed resources.
+Modules → Reusable Terraform code blocks for better organization.
+
+
+Example Terraform Configuration (AWS EC2 Instance)
+===================================================
+
+provider "aws" {
+  region = "us-east-1"
+}
+
+resource "aws_instance" "example" {
+  ami           = "ami-12345678"
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "Terraform-Instance"
+  }
+}
+
+
+Commands to run:
+=================
+
+terraform init     # Initialize Terraform
+terraform plan     # Preview changes
+terraform apply    # Deploy infrastructure
+terraform destroy  # Remove infrastructure
+	
+

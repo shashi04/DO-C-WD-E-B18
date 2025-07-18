@@ -1,0 +1,82 @@
+Declarative configuration or imperative scripting architecture
+===============================================================
+
+
+Declarative configuration and imperative scripting are two different approaches to defining and managing infrastructure or automation processes.
+
+Declarative Configuration
+==========================
+
+Definition: 
+============
+Specifies what the final state should be without defining how to achieve it.
+
+Example Tools: 
+===============
+Terraform, Kubernetes YAML manifests, CloudFormation, Ansible (to some extent).
+
+Pros:
+======
+Idempotency – Running the configuration multiple times results in the same desired state.
+Easier Maintenance – More readable and predictable.
+Automation-Friendly – Works well with GitOps and CI/CD workflows.
+
+Cons:
+======
+Less Flexibility – Difficult to implement conditional logic.
+Abstracted Execution – Less visibility into the steps being executed.
+
+Example (Terraform for EC2 instance creation):
+===============================================
+
+provider "aws" {
+  region = "us-east-1"
+}
+
+resource "aws_instance" "web" {
+  ami           = "ami-12345678"
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "MyWebServer"
+  }
+}
+
+
+Imperative Scripting
+=====================
+
+Definition: 
+============
+Specifies how to achieve a result step by step.
+
+Example Tools:
+===============
+Bash scripts, Python scripts, AWS CLI commands, Jenkins pipelines.
+
+Pros:
+======
+Fine-Grained Control – You define exactly what happens and when.
+Better for Procedural Tasks – Great for complex workflows and conditional logic.
+
+Cons:
+======
+Prone to Errors – Each execution may lead to different states if not handled properly.
+Harder to Maintain – Scripts grow complex over time.
+
+Example (Bash script to launch an EC2 instance):
+=================================================
+
+#!/bin/bash
+
+aws ec2 run-instances --image-id ami-12345678 --count 1 --instance-type t2.micro --key-name MyKeyPair --security-groups MySecurityGroup
+
+
+When to Use Each Approach
+==========================
+
+-> Use declarative configuration for infrastructure as code (IaC), container orchestration, and managing infrastructure in a predictable way.
+-> Use imperative scripting for ad-hoc automation, dynamic workflows, and tasks that require step-by-step execution.
+-> In many cases, both approaches can be combined (e.g., using Terraform for infrastructure provisioning and Ansible scripts for configuration management).
+
+Since you're working with Jenkins and Terraform, a declarative approach with Terraform for provisioning and Jenkins pipelines for automation (with some imperative scripting inside) is a good choice. Let me know if you need specific examples!

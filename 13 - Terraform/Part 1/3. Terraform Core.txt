@@ -1,0 +1,44 @@
+Terraform Core: The Heart of Terraform
+=======================================
+
+Terraform Core is the fundamental part of Terraform, responsible for managing the entire infrastructure lifecycle. It handles state management, configuration parsing, resource dependency resolution, and execution planning.
+
+Key Responsibilities of Terraform Core
+=======================================
+
+1. Reading Configuration Files
+
+-> Parses .tf files written in HCL (HashiCorp Configuration Language) or JSON.
+
+2. State Management
+
+-> Maintains a state file (terraform.tfstate) to track infrastructure resources.
+-> Supports remote state storage (S3, Azure Blob, etc.).
+
+3. Dependency Graph Construction
+
+-> Builds a directed acyclic graph (DAG) to determine the order of resource creation.
+
+4. Execution Plan (terraform plan)
+
+-> Computes changes required to reach the desired state.
+
+5. Applying Changes (terraform apply)
+
+-> Calls Terraform Providers (AWS, Azure, GCP, etc.) via APIs to manage resources.
+
+6. Destroying Resources (terraform destroy)
+
+-> Removes resources that were created using Terraform.
+
+
+Terraform Core & Providers
+===========================
+
+-> Terraform Core interacts with providers (AWS, Azure, Docker, Kubernetes, etc.) via plugin-based architecture.
+-> Providers handle API communication with cloud platforms.
+
+Conclusion
+===========
+
+Terraform Core is the brain of Terraform, ensuring efficient infrastructure provisioning, management, and automation. It processes configuration files, tracks the state, resolves dependencies, and applies changes effectively.

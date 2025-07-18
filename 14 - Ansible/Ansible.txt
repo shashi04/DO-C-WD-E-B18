@@ -1,0 +1,37 @@
+sudo apt install python3-boto3
+
+pip show boto3 version
+
+
+chmod 600 /home/ubuntu/SSH-Key/Guvi.pem
+
+
+Create a inventory file
+
+nano inventory.ini
+
+
+
+
+Specify this for localhost:
+
+localhost ansible_connection=local ansible_python_interpreter=/usr/bin/python3
+
+
+Create a Vault file
+
+ansible-vault create secret.yml
+
+To edit the vault file
+
+ansible-vault edit secret.yml
+
+
+Store the password in a Text file
+
+
+Create the playbook (yaml file)
+
+Run the Playbook
+
+ansible-playbook -i /home/ubuntu/ansible/inventory.ini ec2_create.yml --vault-password-file vault_password.txt

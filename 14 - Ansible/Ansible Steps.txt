@@ -1,0 +1,40 @@
+Step 1: Install ansible
+
+sudo apt install ansible
+
+
+Step 2: Install Python3 - boto 3
+
+sudo apt install python3-boto3
+
+Step 3: Create a directory with name 'ansible' (Optional)
+
+Step 4: Create an Inventory file 
+
+nano inventory.ini
+
+
+localhost ansible_connection=local ansible_python_interpreter=/usr/bin/python3
+
+
+[ec2]
+
+ec2-instance ansible_host=13.233.192.49 ansible_user=ubuntu ansible_private_key_file=/home/ubuntu/SSH-Key/Guvi.pem
+
+
+Step 5: Create a Directory 'Playbook' (Optional)
+
+
+Step 6: Create an Ansible vault
+
+ansible-vault create secret.yml
+
+
+Step 6: Created a playbook for ec2_create
+
+
+
+Step 7: Created a password file 
+
+
+Step 8: Run the playbook

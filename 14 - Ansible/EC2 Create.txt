@@ -1,0 +1,24 @@
+- name: Launch EC2 instance
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+    - /home/ubuntu/ansible/playbook/secrets.yml
+  tasks:
+    - name: Launch an EC2 instance
+      amazon.aws.ec2_instance:
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+        region: "ap-south-1"
+        key_name: "{{ key_name }}"
+        instance_type: "t2.micro"
+        image_id: "ami-0dee22c13ea7a9a67"  # Replace with a valid AMI ID
+        security_group: "sg-0beae1a65b9ce5f63"
+        subnet_id: "subnet-0b49a2911689dde87"  # Replace with your subnet ID
+        count: 1
+        tags:
+          Name: "MyEC2Instance"
+      register: ec2
+
+    - name: Show instance details
+      debug:
+        var: ec2
