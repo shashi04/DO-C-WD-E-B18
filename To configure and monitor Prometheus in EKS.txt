@@ -1,0 +1,147 @@
+To configure and monitor Prometheus and Grafana in a Kubernetes cluster, follow the step-by-step guide below. This includes deploying Prometheus and Grafana using Helm, setting up metric scraping, and visualizing metrics.
+
+🔧 Prerequisites
+A running Kubernetes cluster (EKS, GKE, AKS, minikube, etc.)
+
+kubectl configured
+
+Helm installed
+
+✅ Step 1: Create a Namespace
+
+kubectl create namespace monitoring
+
+✅ Step 2: Add the Prometheus Community Helm Repo
+
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+
+✅ Step 3: Install Prometheus Stack (Prometheus + Grafana)
+
+helm install kube-prometheus-stack prometheus-community/kube-prometheus-stack \
+  --namespace monitoring
+
+This deploys:
+
+Prometheus
+
+Grafana
+
+Node Exporter
+
+Alertmanager
+
+kube-state-metrics
+
+✅ Step 4: Access Grafana Dashboard
+
+Port-forward the Grafana service:
+
+kubectl port-forward svc/kube-prometheus-stack-grafana -n monitoring 3000:80
+
+
+Access Grafana:
+
+Open browser: http://localhost:3000
+
+Default credentials:
+
+User: admin
+
+Password: prom-operator (or get it from the secret below)
+
+
+kubectl get secret --namespace monitoring kube-prometheus-stack-grafana -o jsonpath="{.data.admin-password}" | base64 --decode
+
+✅ Step 5: Access Prometheus UI (Optional)
+
+kubectl port-forward svc/kube-prometheus-stack-prometheus -n monitoring 9090:9090
+
+Access: http://localhost:9090
+
+✅ Step 6: Explore Metrics
+
+In Prometheus UI (http://localhost:9090), try queries like:
+
+up
+
+node_cpu_seconds_total
+
+kube_pod_info
+
+✅ Step 7: Create Dashboards in Grafana
+
+Grafana will have Kubernetes cluster dashboards pre-installed. To create your own:
+
+Go to Create → Dashboard → Add Panel
+
+Choose a metric like:
+
+node_memory_MemAvailable_bytes
+
+rate(container_cpu_usage_seconds_total[5m])
+
+Use PromQL expressions to build custom panels.
+
+✅ Step 8: Enable Persistent Storage (Optional)
+
+Edit values.yaml or use --set flags in Helm to enable persistent volumes:
+
+helm upgrade kube-prometheus-stack prometheus-community/kube-prometheus-stack \
+  --namespace monitoring \
+  --set prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.spec.resources.requests.storage=10Gi \
+  --set grafana.persistence.enabled=true \
+  --set grafana.persistence.size=5Gi \
+  --reuse-values
+
+✅ Step 9: Setup Alerts (Optional)
+
+Edit alert rules or create custom rules:
+
+# Example alert rule
+groups:
+- name: example.rules
+  rules:
+  - alert: HighCPUUsage
+    expr: rate(container_cpu_usage_seconds_total[5m]) > 0.8
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High CPU usage detected"
+You can edit or create rules using ConfigMaps or Helm values.
+
+
+🧪 Step 10: Verify Everything
+
+kubectl get pods -n monitoring
+
+All pods should be running:
+
+Prometheus
+
+Grafana
+
+Alertmanager
+
+Node Exporter
+
+kube-state-metrics
+
+📈 Bonus: Import Prebuilt Dashboards
+From Grafana Dashboards, import IDs like:
+
+Kubernetes Cluster Monitoring – 315
+
+Node Exporter Full – 1860
+
+Prometheus Stats – 2
+
+In Grafana:
+
+Dashboards → Import → Use ID
+
+🔁 Uninstall
+
+helm uninstall kube-prometheus-stack -n monitoring
+kubectl delete namespace monitoring
